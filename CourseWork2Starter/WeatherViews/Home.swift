@@ -38,9 +38,10 @@ struct Home: View {
                 
                 Spacer()
                 
-                Text(userLocation)
+                Text(modelData.userLocation)
                     .font(.title)
                     .foregroundColor(.black)
+                    .padding(.horizontal)
                     .shadow(color: .black, radius: 0.5)
                     .multilineTextAlignment(.center)
                 
@@ -73,7 +74,7 @@ struct Home: View {
                 Spacer()
                 HStack{
                     // Image Goes here!
-                    AsyncImage(url: modelData.getWeatherImageURL())
+                    AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon))
                     Text(modelData.forecast!.current.weather.first!.weatherDescription.rawValue.capitalized)
                         .font(.title2)
                         .foregroundColor(.black)

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22275C572A08B43D00E683BB /* AirData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22275C562A08B43D00E683BB /* AirData.swift */; };
+		22275C5B2A0CBCCC00E683BB /* UNIXHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22275C5A2A0CBCCC00E683BB /* UNIXHelper.swift */; };
+		22275C5D2A0CC5AD00E683BB /* ImageURLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22275C5C2A0CC5AD00E683BB /* ImageURLHelper.swift */; };
 		25AE537529C3CB4C0024DED1 /* CourseWork2StarterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE537429C3CB4C0024DED1 /* CourseWork2StarterApp.swift */; };
 		25AE537729C3CB4C0024DED1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE537629C3CB4C0024DED1 /* ContentView.swift */; };
 		25AE537929C3CB4D0024DED1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25AE537829C3CB4D0024DED1 /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		22275C562A08B43D00E683BB /* AirData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirData.swift; sourceTree = "<group>"; };
+		22275C5A2A0CBCCC00E683BB /* UNIXHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNIXHelper.swift; sourceTree = "<group>"; };
+		22275C5C2A0CC5AD00E683BB /* ImageURLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURLHelper.swift; sourceTree = "<group>"; };
 		25AE537129C3CB4C0024DED1 /* CourseWork2Starter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseWork2Starter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25AE537429C3CB4C0024DED1 /* CourseWork2StarterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWork2StarterApp.swift; sourceTree = "<group>"; };
 		25AE537629C3CB4C0024DED1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 			children = (
 				25AE538729C3CC580024DED1 /* LocationHelper.swift */,
 				25AE538929C3CC610024DED1 /* WindDirHelper.swift */,
+				22275C5A2A0CBCCC00E683BB /* UNIXHelper.swift */,
+				22275C5C2A0CC5AD00E683BB /* ImageURLHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -227,10 +233,12 @@
 				25AE539629C3CCF20024DED1 /* DailyView.swift in Sources */,
 				25AE538C29C3CC710024DED1 /* Structures.swift in Sources */,
 				25AE539429C3CCEA0024DED1 /* NavBar.swift in Sources */,
+				22275C5B2A0CBCCC00E683BB /* UNIXHelper.swift in Sources */,
 				25AE538829C3CC580024DED1 /* LocationHelper.swift in Sources */,
 				25AE537729C3CB4C0024DED1 /* ContentView.swift in Sources */,
 				25AE539E29C3CD0E0024DED1 /* Home.swift in Sources */,
 				25AE53A329C3CD460024DED1 /* PollutionView.swift in Sources */,
+				22275C5D2A0CC5AD00E683BB /* ImageURLHelper.swift in Sources */,
 				25AE537529C3CB4C0024DED1 /* CourseWork2StarterApp.swift in Sources */,
 				25AE539229C3CCE20024DED1 /* ForecastView.swift in Sources */,
 				25AE538A29C3CC610024DED1 /* WindDirHelper.swift in Sources */,

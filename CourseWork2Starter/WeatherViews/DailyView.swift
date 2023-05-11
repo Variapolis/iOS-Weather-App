@@ -13,15 +13,16 @@ struct DailyView: View {
     var body: some View {
         
         HStack {
-            Text("Weather icon")
+            AsyncImage(url: getWeatherImageURL(icon: day.weather[0].icon))
             Spacer()
             VStack {
-                Text("Weather description")
-                Text("Day and 2 digit date")
+                Text(day.weather[0].weatherDescription.rawValue.capitalized)
+                // TODO: Fix date to be day and number only
+                Text(UnixToStringDate(timestamp: day.dt))
                 
             }
             Spacer()
-            Text("high temp and low temp")
+            Text("\(Int(day.temp.max))ºC / \(Int(day.temp.min))ºC")
            
         }.padding()
     }

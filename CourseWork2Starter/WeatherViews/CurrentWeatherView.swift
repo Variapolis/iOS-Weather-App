@@ -14,34 +14,63 @@ struct CurrentWeatherView: View {
     
     var body: some View {
         ZStack {
-            // Background Image rendering code here
-        
+            Image("background2")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
             VStack {
-                Text("This is the CurrentWeatherView that displays detailed\n current weather with icons as shown in Figure 2.\n Build this view here")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
+                Text(modelData.userLocation)
+                    .font(.title)
+                    .foregroundColor(.black)
+                    .shadow(color: .black, radius: 0.5)
                     .multilineTextAlignment(.center)
-                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-
                 VStack{
-
-        //          Temperature Info
+                    
+                    //          Temperature Info
                     VStack {
                         Text("\((Int)(modelData.forecast!.current.temp))ºC")
                             .padding()
                             .font(.largeTitle)
                         HStack {
-
+                            AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon))
                             Text(modelData.forecast!.current.weather[0].weatherDescription.rawValue.capitalized)
                                 .foregroundColor(.black)
                         }
-
+                        HStack{
+                            Text("H: \(Int(modelData.forecast!.daily.first!.temp.max))ºC")
+                                .padding(.horizontal)
+                            Text("Low: \(Int(modelData.forecast!.daily.first!.temp.min))ºC")
+                                .padding(.horizontal)
+                            
+                        }.padding(.vertical)
+                        
                         Text("Feels Like: \((Int)(modelData.forecast!.current.feelsLike))ºC")
                             .foregroundColor(.black)
                     }.padding()
-                    
- 
+                    HStack{
+                        Text("Wind Speed: \(Int(modelData.forecast!.current.windSpeed))m/s")
+                            .padding(.horizontal, 25.0)
+                        Text("Direction: \(convertDegToCardinal(deg: modelData.forecast!.current.windDeg))")
+                            .padding(.horizontal, 25.0)
+                    }
+                    .padding(.vertical)
+                    HStack{
+                        Text("Humidity: \(Int(modelData.forecast!.current.humidity))%")
+                            .padding(.horizontal, 25.0)
+                        Text("Direction: \( modelData.forecast!.current.pressure)hPg")
+                            .padding(.horizontal, 25.0)
+                    }
+                    .padding(.top, 50.0)
+                    HStack{
+                        Image(systemName: "sunrise")
+                        Text(UnixToStringTime(timestamp: modelData.forecast!.current.sunrise!))
+                        Image(systemName: "sunset")
+                        Text(UnixToStringTime(timestamp: modelData.forecast!.current.sunset!))
 
+                    }
+                    .padding(.vertical)
+                    
+                    
                 }
                 
             }

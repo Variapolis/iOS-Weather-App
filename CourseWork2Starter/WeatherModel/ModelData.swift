@@ -8,7 +8,7 @@ class ModelData: ObservableObject {
     init() {
         self.forecast = loadForecast()
     }
-    
+    // TODO: Add Saving and Loading for Air Quality and Location
     
     func downloadData(lat: Double, lon: Double) async throws -> Forecast {
         let weatherURL = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&units=metric&appid=0835716d6f39fc54217361ebd0d39a9e")
@@ -35,11 +35,7 @@ class ModelData: ObservableObject {
             throw error
         }
     }
-    
-    func getWeatherImageURL() -> URL{
-        return URL(string: "https://openweathermap.org/img/wn/\(forecast!.current.weather.first!.icon)@2x.png")!
-    }
-    
+        
     func loadForecast<Forecast: Decodable>() -> Forecast {
         let data: Data
         let decoder = JSONDecoder()
