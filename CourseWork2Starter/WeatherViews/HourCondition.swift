@@ -14,10 +14,12 @@ struct HourCondition: View {
     var body: some View {
         HStack {
             VStack {
-                Text("This view is hourly summary for the next 48 hours for the location,\n see  Figure 3 what this view must show and build it")
-
+                Text(UnixToDateFormat(timestamp: current.dt, format: "ha"))
+                Text(UnixToDateFormat(timestamp: current.dt, format: "E"))
             }
-            Spacer()
+            AsyncImage(url: getWeatherImageURL(icon: current.weather[0].icon))
+            Text("\(Int(current.temp))ºC")
+            Text(current.weather[0].weatherDescription.rawValue.capitalized)
 
         }.padding()
     }
