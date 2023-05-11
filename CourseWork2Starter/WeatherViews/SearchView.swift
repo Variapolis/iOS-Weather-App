@@ -28,11 +28,7 @@ struct SearchView: View {
                         if let lat = placemarks?.first?.location?.coordinate.latitude,
                            let lon = placemarks?.first?.location?.coordinate.longitude {
                             Task.detached{ // Executes async helper method synchronously as a Task
-                                let newForecast = try await modelData.downloadData(lat: lat, lon: lon)
-                                DispatchQueue.main.async {
-                                    modelData.weatherData! = newForecast
-                                    userLocation = modelData.weatherData!.location
-                                }
+                                try await modelData.downloadData(lat: lat, lon: lon)
                             }
                             isSearchOpen.toggle()
                         }

@@ -18,23 +18,23 @@ struct NavBar: View {
                 }
             CurrentWeatherView()
                 .tabItem {
-                    
+                    Image(systemName: "sun.max.fill")
                     Text("WeatherNow")
                 }
             
             HourlyView()
                 .tabItem{
-                    
+                    Image(systemName: "clock.fill")
                     Text("Hourly Summary")
                 }
             ForecastView()
                 .tabItem {
-                    
+                    Image(systemName: "calendar")
                     Text("Forecast")
                 }
             PollutionView()
                 .tabItem {
-                    
+                    Image(systemName: "aqi.high")
                     Text("Pollution")
                 }
         }.onAppear {
