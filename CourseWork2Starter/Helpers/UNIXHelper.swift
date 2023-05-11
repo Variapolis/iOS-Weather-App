@@ -19,8 +19,7 @@ func UnixToStringTime(timestamp: Int) -> String{
 func UnixToStringDate(timestamp: Int) -> String{
     let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
     let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .full
-    dateFormatter.timeStyle = .none
+    dateFormatter.dateFormat = "EEEE, d"
     
     return dateFormatter.string(from: date)
 }
