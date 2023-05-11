@@ -7,19 +7,10 @@
 
 import Foundation
 
-func UnixToStringTime(timestamp: Int) -> String{
+func UnixToDateFormat(timestamp: Int, format: String) -> String{
     let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
     let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .none
-    dateFormatter.timeStyle = .short
-    
-    return dateFormatter.string(from: date)
-}
-
-func UnixToStringDate(timestamp: Int) -> String{
-    let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEEE, d"
+    dateFormatter.dateFormat = format
     
     return dateFormatter.string(from: date)
 }

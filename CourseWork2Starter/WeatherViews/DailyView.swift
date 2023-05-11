@@ -18,7 +18,7 @@ struct DailyView: View {
             VStack {
                 Text(day.weather[0].weatherDescription.rawValue.capitalized)
                 // TODO: Fix date to be day and number only
-                Text(UnixToStringDate(timestamp: day.dt))
+                Text(UnixToDateFormat(timestamp: day.dt, format: "EEEE d"))
                 
             }
             Spacer()

@@ -63,9 +63,9 @@ struct CurrentWeatherView: View {
                     .padding(.top, 50.0)
                     HStack{
                         Image(systemName: "sunrise")
-                        Text(UnixToStringTime(timestamp: modelData.forecast!.current.sunrise!))
+                        Text(UnixToDateFormat(timestamp: modelData.forecast!.current.sunrise!, format: "h:mma"))
                         Image(systemName: "sunset")
-                        Text(UnixToStringTime(timestamp: modelData.forecast!.current.sunset!))
+                        Text(UnixToDateFormat(timestamp: modelData.forecast!.current.sunset!, format: "h:mma"))
 
                     }
                     .padding(.vertical)
