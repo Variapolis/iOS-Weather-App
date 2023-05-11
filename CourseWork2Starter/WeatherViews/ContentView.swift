@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  CourseWork2Starter
 //
-//  Created by GirishALukka on 16/03/2023.
+//  Created by Variapolis.
 //
 
 import SwiftUI

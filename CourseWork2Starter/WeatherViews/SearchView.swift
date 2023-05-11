@@ -2,7 +2,7 @@
 //  SearchView.swift
 //  CWK2_23_GL
 //
-//  Created by GirishALukka on 11/03/2023.
+//  Created by Variapolis.
 //
 
 import SwiftUI

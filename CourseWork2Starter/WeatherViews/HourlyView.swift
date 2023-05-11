@@ -13,7 +13,7 @@ struct HourlyView: View {
     
     var body: some View {
         ZStack{
-            Image("background2")
+            Image("background")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)

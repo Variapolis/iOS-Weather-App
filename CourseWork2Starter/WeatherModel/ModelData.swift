@@ -6,7 +6,7 @@ class ModelData: ObservableObject {
     let defaultFilename: String = "london.json"
     let runtimeDataKey: String = "weather"
     init() {
-        self.forecast = loadForecast()
+        loadForecast()
     }
     // TODO: Add Saving and Loading for Air Quality and Location
     
@@ -36,7 +36,7 @@ class ModelData: ObservableObject {
         }
     }
         
-    func loadForecast<Forecast: Decodable>() -> Forecast {
+    private func loadForecast() -> Void {
         let data: Data
         let decoder = JSONDecoder()
         let userDefaults = UserDefaults.standard
@@ -54,13 +54,14 @@ class ModelData: ObservableObject {
             fatalError("Couldn't find \(defaultFilename) or \(runtimeDataKey) in main bundle.")
         }
         do {
-            return try decoder.decode(Forecast.self, from: data)
+            let forecast = try decoder.decode(Forecast.self, from: data)
+            self.forecast = forecast
         } catch {
             fatalError("Couldn't parse forecast data as \(Forecast.self):\n\(error)")
         }
     }
     
-    func saveForecast(forecastData: Forecast) -> Void {
+    private func saveForecast(forecastData: Forecast) -> Void {
         let encoder = JSONEncoder()
         let userDefaults = UserDefaults.standard
         encoder.outputFormatting = .prettyPrinted

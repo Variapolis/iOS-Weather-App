@@ -2,7 +2,7 @@
 //  PollutionView.swift
 //  Coursework2
 //
-//  Created by GirishALukka on 30/12/2022.
+//  Created by Variapolis.
 //
 
 import SwiftUI
@@ -10,33 +10,63 @@ import SwiftUI
 struct PollutionView: View {
     
     @EnvironmentObject var modelData: ModelData
-
+    
     var body: some View {
         
         ZStack {
-
-            // Use ZStack for background images
-            
+            Image("background")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
             VStack {
-                Text("")
-                Spacer()
-                Text("This is a mixed view with weather \n and air quality data,\n refer to Figure 5 to see what data must be displayed here")
-                Spacer()
-                if let pm25 = modelData.airData?.list.first?.components.pm2_5 {
-                    Text(String(pm25))
-                } else {
-                    Text("N/A")
-                }
-
-                    }
+                Text(modelData.userLocation)
+                    .font(.title)
+                    .foregroundColor(.black)
+                    .shadow(color: .black, radius: 0.5)
+                    .multilineTextAlignment(.center)
+                VStack{
                     
+                    //          Temperature Info
+                    VStack {
+                        Text("\((Int)(modelData.forecast!.current.temp))ºC")
+                            .padding()
+                            .font(.largeTitle)
+                        HStack {
+                            AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon))
+                            Text(modelData.forecast!.current.weather[0].weatherDescription.rawValue.capitalized)
+                                .foregroundColor(.black)
+                        }
+                        HStack{
+                            Text("H: \(Int(modelData.forecast!.daily.first!.temp.max))ºC")
+                                .padding(.horizontal)
+                            Text("Low: \(Int(modelData.forecast!.daily.first!.temp.min))ºC")
+                                .padding(.horizontal)
+                            
+                        }.padding(.vertical)
+                        
+                        Text("Feels Like: \((Int)(modelData.forecast!.current.feelsLike))ºC")
+                            .foregroundColor(.black)
+                    }.padding()
+                    Text("Air Quality Data:")
+                        .font(.title)
+                        .foregroundColor(.black)
+                        .shadow(color: .black, radius: 0.5)
+                        .multilineTextAlignment(.center)
+                    HStack{
+                        PollutantView(image: "so2", value: modelData.airData!.list[0].components.so2)
+                        PollutantView(image: "no", value: modelData.airData!.list[0].components.no)
+                        PollutantView(image: "voc", value: modelData.airData!.list[0].components.nh3)
+                        PollutantView(image: "pm", value: modelData.airData!.list[0].components.pm2_5)
+                    }.padding(.horizontal)
+                }
                 
-                .foregroundColor(.black)
-                .shadow(color: .black,  radius: 0.5)
-                
-            }.ignoresSafeArea(edges: [.top, .trailing, .leading])
-        }
+            }
+            .foregroundColor(.black)
+            .shadow(color: .black,  radius: 0.5)
+            
+        }.ignoresSafeArea(edges: [.top, .trailing, .leading])
     }
+}
 
-    
+
 

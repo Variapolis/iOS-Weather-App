@@ -2,7 +2,7 @@
 //  AirData.swift
 //  CourseWork2Starter
 //
-//  Created by Sam on 08/05/2023.
+//  Created by Variapolis.
 //
 
 import Foundation
