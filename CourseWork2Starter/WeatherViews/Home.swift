@@ -73,8 +73,11 @@ struct Home: View {
                     .shadow(color: .black, radius: 0.5)
                 Spacer()
                 HStack{
-                    // Image Goes here!
-                    AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon))
+                    AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView().progressViewStyle(.circular)
+                    }
                     Text(modelData.forecast!.current.weather.first!.weatherDescription.rawValue.capitalized)
                         .font(.title2)
                         .foregroundColor(.black)
