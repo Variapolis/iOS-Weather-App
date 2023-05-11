@@ -16,26 +16,27 @@ struct ForecastView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
-            Rectangle()
-                .fill(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
-                .padding(.top, 75.0)
+            
             VStack{
                 Text(modelData.userLocation)
                     .font(.title)
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
-                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    .padding(.horizontal)
                 
-                List{
-                    ForEach(modelData.forecast!.daily) { day in
-                        DailyView(day: day)
-                            .listRowBackground(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
+                ZStack{
+                    Rectangle()
+                        .fill(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
+                    List{
+                        ForEach(modelData.forecast!.daily) { day in
+                            DailyView(day: day)
+                                .listRowBackground(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
+                        }
                     }
                 }
-                .padding(.horizontal)
-                .scrollContentBackground(.hidden)
-                .background(Color.clear)
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
             .onAppear {
                 Task.init {
                     self.locationString = await getLocFromLatLong(lat: modelData.forecast!.lat, lon: modelData.forecast!.lon)

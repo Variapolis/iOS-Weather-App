@@ -74,7 +74,7 @@ struct Home: View {
                 Spacer()
                 HStack{
                     AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon)) { image in
-                        image.resizable()
+                        image
                     } placeholder: {
                         ProgressView().progressViewStyle(.circular)
                     }
