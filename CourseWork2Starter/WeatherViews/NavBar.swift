@@ -2,7 +2,7 @@
 //  NavBar.swift
 //  Coursework2
 //
-//  Created by G Lukka.
+//  Created by Variapolis.
 //
 
 import SwiftUI
