@@ -17,7 +17,10 @@ struct Home: View {
     
     var body: some View {
         ZStack{
-            // Background Image
+            Image("background2")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
                     Button {
@@ -67,15 +70,15 @@ struct Home: View {
                     .font(.title2)
                     .foregroundColor(.black)
                     .shadow(color: .black, radius: 0.5)
-                
+                Spacer()
                 HStack{
                     // Image Goes here!
+                    AsyncImage(url: modelData.getWeatherImageURL())
                     Text(modelData.forecast!.current.weather.first!.weatherDescription.rawValue.capitalized)
                         .font(.title2)
                         .foregroundColor(.black)
                         .shadow(color: .black, radius: 0.5)
                 }
-                Spacer()
             }
             .onAppear {
                 Task.init {
