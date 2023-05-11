@@ -36,6 +36,10 @@ class ModelData: ObservableObject {
         }
     }
     
+    func getWeatherImageURL() -> URL{
+        return URL(string: "https://openweathermap.org/img/wn/\(forecast!.current.weather.first!.icon)@2x.png")!
+    }
+    
     func loadForecast<Forecast: Decodable>() -> Forecast {
         let data: Data
         let decoder = JSONDecoder()
