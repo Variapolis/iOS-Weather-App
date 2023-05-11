@@ -1,16 +1,15 @@
 import Foundation
 class ModelData: ObservableObject {
-    @Published var forecast: Forecast?
-    @Published var airData: AirData?
-    @Published  var userLocation: String = ""
-    let defaultFilename: String = "london.json"
-    let runtimeDataKey: String = "weather"
+    @Published var weatherData: WeatherData?
+    private let defaultForecastFile: String = "london.json"
+    private let defaultAirFile: String = "londonAir.json"
+    private let weatherKey: String = "weather"
     init() {
         loadForecast()
     }
     // TODO: Add Saving and Loading for Air Quality and Location
     
-    func downloadData(lat: Double, lon: Double) async throws -> Forecast {
+    func downloadData(lat: Double, lon: Double) async throws -> WeatherData {
         let weatherURL = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&units=metric&appid=0835716d6f39fc54217361ebd0d39a9e")
         let weatherSession = URLSession(configuration: .default)
         let (weatherData, _) = try await weatherSession.data(from: weatherURL!)
@@ -24,53 +23,63 @@ class ModelData: ObservableObject {
             let forecastData = try JSONDecoder().decode(Forecast.self, from: weatherData)
             let airData = try JSONDecoder().decode(AirData.self, from: airData)
             let locationString = await getLocFromLatLong(lat: lat, lon: lon)
+            let newWeatherData = WeatherData(location: locationString, forecast: forecastData, air: airData)
             DispatchQueue.main.async {
-                self.forecast = forecastData
-                self.airData = airData
-                self.userLocation = locationString
+                self.weatherData = newWeatherData
             }
-            self.saveForecast(forecastData: forecastData)
-            return forecastData
+            self.saveForecast(weatherData: self.weatherData!)
+            return newWeatherData
         } catch {
             throw error
         }
     }
         
     private func loadForecast() -> Void {
-        let data: Data
+        let forecastData: Data
+        let airData: Data
         let decoder = JSONDecoder()
         let userDefaults = UserDefaults.standard
-        if let savedData = userDefaults.data(forKey: runtimeDataKey){
-            data = savedData
-        }
-        else if let file = Bundle.main.url(forResource: defaultFilename, withExtension: nil){
+        if let savedWeatherData = userDefaults.data(forKey: weatherKey){
             do {
-                data = try Data(contentsOf: file)
+                let weatherData = try decoder.decode(WeatherData.self, from: savedWeatherData)
+                self.weatherData = weatherData
+                return
+            }
+            catch{
+                print("Save File not found")
+            }
+        }
+        if let file = Bundle.main.url(forResource: defaultForecastFile, withExtension: nil),
+                    let airFile = Bundle.main.url(forResource: defaultAirFile, withExtension: nil){
+            do {
+                forecastData = try Data(contentsOf: file)
+                airData = try Data(contentsOf: airFile)
             } catch {
-                fatalError("Couldn't load \(defaultFilename) from main bundle:\n\(error)")
+                fatalError("Couldn't load \(defaultForecastFile) or \(defaultAirFile) from main bundle:\n\(error)")
             }
         }
         else {
-            fatalError("Couldn't find \(defaultFilename) or \(runtimeDataKey) in main bundle.")
+            fatalError("Couldn't find \(defaultForecastFile) or \(weatherKey) in main bundle.")
         }
         do {
-            let forecast = try decoder.decode(Forecast.self, from: data)
-            self.forecast = forecast
+            let forecast = try decoder.decode(Forecast.self, from: forecastData)
+            let air = try decoder.decode(AirData.self, from: airData)
+            self.weatherData = WeatherData(location: "London M8", forecast: forecast, air: air)
         } catch {
             fatalError("Couldn't parse forecast data as \(Forecast.self):\n\(error)")
         }
     }
     
-    private func saveForecast(forecastData: Forecast) -> Void {
+    private func saveForecast(weatherData: WeatherData) -> Void {
         let encoder = JSONEncoder()
         let userDefaults = UserDefaults.standard
         encoder.outputFormatting = .prettyPrinted
         do{
-            let dataToSave = try encoder.encode(forecastData)
-            userDefaults.set(dataToSave, forKey: runtimeDataKey)
+            let weatherEncoded = try encoder.encode(weatherData)
+            userDefaults.set(weatherEncoded, forKey: weatherKey)
         }
         catch{
-            fatalError("Couldn't encode \(defaultFilename) as \(forecastData):\n\(error)")
+            fatalError("Couldn't encode \(defaultForecastFile) as \(weatherData):\n\(error)")
         }
     }
 }

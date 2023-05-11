@@ -30,7 +30,7 @@ struct DailyView: View {
 }
 
 struct DailyView_Previews: PreviewProvider {
-    static var day = ModelData().forecast!.daily
+    static var day = ModelData().weatherData!.forecast.daily
     
     static var previews: some View {
         DailyView(day: day[0])

@@ -19,7 +19,7 @@ struct CurrentWeatherView: View {
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                Text(modelData.userLocation)
+                Text(modelData.weatherData!.location)
                     .font(.title)
                     .foregroundColor(.black)
                     .shadow(color: .black, radius: 0.5)
@@ -28,44 +28,44 @@ struct CurrentWeatherView: View {
                     
                     //          Temperature Info
                     VStack {
-                        Text("\((Int)(modelData.forecast!.current.temp))ºC")
+                        Text("\((Int)(modelData.weatherData!.forecast.current.temp))ºC")
                             .padding()
                             .font(.largeTitle)
                         HStack {
-                            AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon))
-                            Text(modelData.forecast!.current.weather[0].weatherDescription.rawValue.capitalized)
+                            AsyncImage(url: getWeatherImageURL(icon: modelData.weatherData!.forecast.current.weather[0].icon))
+                            Text(modelData.weatherData!.forecast.current.weather[0].weatherDescription.rawValue.capitalized)
                                 .foregroundColor(.black)
                         }
                         HStack{
-                            Text("H: \(Int(modelData.forecast!.daily.first!.temp.max))ºC")
+                            Text("H: \(Int(modelData.weatherData!.forecast.daily.first!.temp.max))ºC")
                                 .padding(.horizontal)
-                            Text("Low: \(Int(modelData.forecast!.daily.first!.temp.min))ºC")
+                            Text("Low: \(Int(modelData.weatherData!.forecast.daily.first!.temp.min))ºC")
                                 .padding(.horizontal)
                             
                         }.padding(.vertical)
                         
-                        Text("Feels Like: \((Int)(modelData.forecast!.current.feelsLike))ºC")
+                        Text("Feels Like: \((Int)(modelData.weatherData!.forecast.current.feelsLike))ºC")
                             .foregroundColor(.black)
                     }.padding()
                     HStack{
-                        Text("Wind Speed: \(Int(modelData.forecast!.current.windSpeed))m/s")
+                        Text("Wind Speed: \(Int(modelData.weatherData!.forecast.current.windSpeed))m/s")
                             .padding(.horizontal, 25.0)
-                        Text("Direction: \(convertDegToCardinal(deg: modelData.forecast!.current.windDeg))")
+                        Text("Direction: \(convertDegToCardinal(deg: modelData.weatherData!.forecast.current.windDeg))")
                             .padding(.horizontal, 25.0)
                     }
                     .padding(.vertical)
                     HStack{
-                        Text("Humidity: \(Int(modelData.forecast!.current.humidity))%")
+                        Text("Humidity: \(Int(modelData.weatherData!.forecast.current.humidity))%")
                             .padding(.horizontal, 25.0)
-                        Text("Direction: \( modelData.forecast!.current.pressure)hPg")
+                        Text("Direction: \( modelData.weatherData!.forecast.current.pressure)hPg")
                             .padding(.horizontal, 25.0)
                     }
                     .padding(.top, 50.0)
                     HStack{
                         Image(systemName: "sunrise")
-                        Text(UnixToDateFormat(timestamp: modelData.forecast!.current.sunrise!, format: "h:mma"))
+                        Text(UnixToDateFormat(timestamp: modelData.weatherData!.forecast.current.sunrise!, format: "h:mma"))
                         Image(systemName: "sunset")
-                        Text(UnixToDateFormat(timestamp: modelData.forecast!.current.sunset!, format: "h:mma"))
+                        Text(UnixToDateFormat(timestamp: modelData.weatherData!.forecast.current.sunset!, format: "h:mma"))
 
                     }
                     .padding(.vertical)

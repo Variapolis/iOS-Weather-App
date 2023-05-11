@@ -26,7 +26,7 @@ struct HourCondition: View {
 }
 
 struct HourCondition_Previews: PreviewProvider {
-    static var hourly = ModelData().forecast!.hourly
+    static var hourly = ModelData().weatherData!.forecast.hourly
     
     static var previews: some View {
         HourCondition(current: hourly[0])

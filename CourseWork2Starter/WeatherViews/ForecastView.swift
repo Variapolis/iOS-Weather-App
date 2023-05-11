@@ -18,7 +18,7 @@ struct ForecastView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack{
-                Text(modelData.userLocation)
+                Text(modelData.weatherData!.location)
                     .font(.title)
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
@@ -28,7 +28,7 @@ struct ForecastView: View {
                     Rectangle()
                         .fill(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
                     List{
-                        ForEach(modelData.forecast!.daily) { day in
+                        ForEach(modelData.weatherData!.forecast.daily) { day in
                             DailyView(day: day)
                                 .listRowBackground(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
                         }
@@ -39,7 +39,7 @@ struct ForecastView: View {
             .background(Color.clear)
             .onAppear {
                 Task.init {
-                    self.locationString = await getLocFromLatLong(lat: modelData.forecast!.lat, lon: modelData.forecast!.lon)
+                    self.locationString = await getLocFromLatLong(lat: modelData.weatherData!.forecast.lat, lon: modelData.weatherData!.forecast.lon)
                 }
             }
         }

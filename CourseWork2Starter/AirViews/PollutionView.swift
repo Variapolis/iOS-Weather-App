@@ -14,12 +14,15 @@ struct PollutionView: View {
     var body: some View {
         
         ZStack {
-            Image("background")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
+            GeometryReader{geometry in
+                Image("background")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width)
+                    .ignoresSafeArea(.all)
+            }
             VStack {
-                Text(modelData.userLocation)
+                Text(modelData.weatherData!.location)
                     .font(.title)
                     .foregroundColor(.black)
                     .shadow(color: .black, radius: 0.5)
@@ -28,23 +31,23 @@ struct PollutionView: View {
                     
                     //          Temperature Info
                     VStack {
-                        Text("\((Int)(modelData.forecast!.current.temp))ºC")
+                        Text("\((Int)(modelData.weatherData!.forecast.current.temp))ºC")
                             .padding()
                             .font(.largeTitle)
                         HStack {
-                            AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon))
-                            Text(modelData.forecast!.current.weather[0].weatherDescription.rawValue.capitalized)
+                            AsyncImage(url: getWeatherImageURL(icon: modelData.weatherData!.forecast.current.weather[0].icon))
+                            Text(modelData.weatherData!.forecast.current.weather[0].weatherDescription.rawValue.capitalized)
                                 .foregroundColor(.black)
                         }
                         HStack{
-                            Text("H: \(Int(modelData.forecast!.daily.first!.temp.max))ºC")
+                            Text("H: \(Int(modelData.weatherData!.forecast.daily.first!.temp.max))ºC")
                                 .padding(.horizontal)
-                            Text("Low: \(Int(modelData.forecast!.daily.first!.temp.min))ºC")
+                            Text("Low: \(Int(modelData.weatherData!.forecast.daily.first!.temp.min))ºC")
                                 .padding(.horizontal)
                             
                         }.padding(.vertical)
                         
-                        Text("Feels Like: \((Int)(modelData.forecast!.current.feelsLike))ºC")
+                        Text("Feels Like: \((Int)(modelData.weatherData!.forecast.current.feelsLike))ºC")
                             .foregroundColor(.black)
                     }.padding()
                     Text("Air Quality Data:")
@@ -53,10 +56,10 @@ struct PollutionView: View {
                         .shadow(color: .black, radius: 0.5)
                         .multilineTextAlignment(.center)
                     HStack{
-                        PollutantView(image: "so2", value: modelData.airData!.list[0].components.so2)
-                        PollutantView(image: "no", value: modelData.airData!.list[0].components.no)
-                        PollutantView(image: "voc", value: modelData.airData!.list[0].components.nh3)
-                        PollutantView(image: "pm", value: modelData.airData!.list[0].components.pm2_5)
+                        PollutantView(image: "so2", value: modelData.weatherData!.air.list[0].components.so2)
+                        PollutantView(image: "no", value: modelData.weatherData!.air.list[0].components.no)
+                        PollutantView(image: "voc", value: modelData.weatherData!.air.list[0].components.nh3)
+                        PollutantView(image: "pm", value: modelData.weatherData!.air.list[0].components.pm2_5)
                     }.padding(.horizontal)
                 }
                 

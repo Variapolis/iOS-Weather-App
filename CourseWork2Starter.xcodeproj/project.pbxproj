@@ -12,6 +12,7 @@
 		22275C5D2A0CC5AD00E683BB /* ImageURLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22275C5C2A0CC5AD00E683BB /* ImageURLHelper.swift */; };
 		223B17672A0D924600BC883D /* PollutantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223B17662A0D924600BC883D /* PollutantView.swift */; };
 		223B17692A0D96BC00BC883D /* londonAir.json in Resources */ = {isa = PBXBuildFile; fileRef = 223B17682A0D96BC00BC883D /* londonAir.json */; };
+		223B176B2A0D99B900BC883D /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223B176A2A0D99B900BC883D /* WeatherData.swift */; };
 		25AE537529C3CB4C0024DED1 /* CourseWork2StarterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE537429C3CB4C0024DED1 /* CourseWork2StarterApp.swift */; };
 		25AE537729C3CB4C0024DED1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE537629C3CB4C0024DED1 /* ContentView.swift */; };
 		25AE537929C3CB4D0024DED1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25AE537829C3CB4D0024DED1 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		22275C5C2A0CC5AD00E683BB /* ImageURLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURLHelper.swift; sourceTree = "<group>"; };
 		223B17662A0D924600BC883D /* PollutantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollutantView.swift; sourceTree = "<group>"; };
 		223B17682A0D96BC00BC883D /* londonAir.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = londonAir.json; sourceTree = "<group>"; };
+		223B176A2A0D99B900BC883D /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		25AE537129C3CB4C0024DED1 /* CourseWork2Starter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseWork2Starter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25AE537429C3CB4C0024DED1 /* CourseWork2StarterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseWork2StarterApp.swift; sourceTree = "<group>"; };
 		25AE537629C3CB4C0024DED1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				25AE538F29C3CC810024DED1 /* london.json */,
 				25AE538D29C3CC7A0024DED1 /* ModelData.swift */,
 				25AE538B29C3CC710024DED1 /* Structures.swift */,
+				223B176A2A0D99B900BC883D /* WeatherData.swift */,
 			);
 			path = WeatherModel;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				25AE539429C3CCEA0024DED1 /* NavBar.swift in Sources */,
 				22275C5B2A0CBCCC00E683BB /* UNIXHelper.swift in Sources */,
 				25AE538829C3CC580024DED1 /* LocationHelper.swift in Sources */,
+				223B176B2A0D99B900BC883D /* WeatherData.swift in Sources */,
 				25AE537729C3CB4C0024DED1 /* ContentView.swift in Sources */,
 				25AE539E29C3CD0E0024DED1 /* Home.swift in Sources */,
 				223B17672A0D924600BC883D /* PollutantView.swift in Sources */,

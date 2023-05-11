@@ -38,14 +38,14 @@ struct Home: View {
                 
                 Spacer()
                 
-                Text(modelData.userLocation)
+                Text(modelData.weatherData!.location)
                     .font(.title)
                     .foregroundColor(.black)
                     .padding(.horizontal)
                     .shadow(color: .black, radius: 0.5)
                     .multilineTextAlignment(.center)
                 
-                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast?.current.dt ?? 0))))
+                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.weatherData!.forecast.current.dt ?? 0))))
                     .formatted(.dateTime.year().hour().month().day()))
                 .padding()
                 .font(.largeTitle)
@@ -54,31 +54,31 @@ struct Home: View {
                 
                 Spacer()
                 
-                Text("Temp: \((Int)(modelData.forecast!.current.temp))ºC")
+                Text("Temp: \((Int)(modelData.weatherData!.forecast.current.temp))ºC")
                     .padding()
                     .font(.title2)
                     .foregroundColor(.black)
                     .shadow(color: .black, radius: 0.5)
                 
-                Text("Humidity: \(modelData.forecast!.current.humidity)%")
+                Text("Humidity: \(modelData.weatherData!.forecast.current.humidity)%")
                     .padding()
                     .font(.title2)
                     .foregroundColor(.black)
                     .shadow(color: .black, radius: 0.5)
                 
-                Text("Pressure: \(modelData.forecast!.current.pressure)hPa")
+                Text("Pressure: \(modelData.weatherData!.forecast.current.pressure)hPa")
                     .padding()
                     .font(.title2)
                     .foregroundColor(.black)
                     .shadow(color: .black, radius: 0.5)
                 Spacer()
                 HStack{
-                    AsyncImage(url: getWeatherImageURL(icon: modelData.forecast!.current.weather[0].icon)) { image in
+                    AsyncImage(url: getWeatherImageURL(icon: modelData.weatherData!.forecast.current.weather[0].icon)) { image in
                         image
                     } placeholder: {
                         ProgressView().progressViewStyle(.circular)
                     }
-                    Text(modelData.forecast!.current.weather.first!.weatherDescription.rawValue.capitalized)
+                    Text(modelData.weatherData!.forecast.current.weather.first!.weatherDescription.rawValue.capitalized)
                         .font(.title2)
                         .foregroundColor(.black)
                         .shadow(color: .black, radius: 0.5)
@@ -86,7 +86,7 @@ struct Home: View {
             }
             .onAppear {
                 Task.init {
-                    self.userLocation = await getLocFromLatLong(lat: modelData.forecast!.lat, lon: modelData.forecast!.lon)
+                    self.userLocation = await getLocFromLatLong(lat: modelData.weatherData!.forecast.lat, lon: modelData.weatherData!.forecast.lon)
                     
                     
                 }

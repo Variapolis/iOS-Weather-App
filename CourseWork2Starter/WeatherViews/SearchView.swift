@@ -30,8 +30,8 @@ struct SearchView: View {
                             Task.detached{ // Executes async helper method synchronously as a Task
                                 let newForecast = try await modelData.downloadData(lat: lat, lon: lon)
                                 DispatchQueue.main.async {
-                                    modelData.forecast = newForecast
-                                    userLocation = modelData.userLocation
+                                    modelData.weatherData! = newForecast
+                                    userLocation = modelData.weatherData!.location
                                 }
                             }
                             isSearchOpen.toggle()

@@ -13,12 +13,15 @@ struct HourlyView: View {
     
     var body: some View {
         ZStack{
-            Image("background")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
+            GeometryReader{geometry in
+                Image("background")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width)
+                    .ignoresSafeArea(.all)
+            }
             VStack{
-                Text(modelData.userLocation)
+                Text(modelData.weatherData!.location)
                     .font(.title)
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
@@ -28,7 +31,7 @@ struct HourlyView: View {
                     Rectangle()
                         .fill(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
                     List {
-                        ForEach(modelData.forecast!.hourly) { hour in
+                        ForEach(modelData.weatherData!.forecast.hourly) { hour in
                             HourCondition(current: hour)
                                 .listRowBackground(Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.4))
                         }
