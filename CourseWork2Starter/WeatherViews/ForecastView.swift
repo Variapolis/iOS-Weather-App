@@ -12,11 +12,13 @@ struct ForecastView: View {
     @State var locationString: String = "No location"
     var body: some View {
         ZStack{
-            Image("background2")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
-            
+            GeometryReader{geometry in
+                Image("background2")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width)
+                    .ignoresSafeArea(.all)
+            }
             VStack{
                 Text(modelData.weatherData!.location)
                     .font(.title)
@@ -37,14 +39,10 @@ struct ForecastView: View {
             }
             .scrollContentBackground(.hidden)
             .background(Color.clear)
-            .onAppear {
-                Task.init {
-                    self.locationString = await getLocFromLatLong(lat: modelData.weatherData!.forecast.lat, lon: modelData.weatherData!.forecast.lon)
-                }
-            }
         }
     }
 }
+
 
 struct Forecast_Previews: PreviewProvider {
     static var previews: some View {

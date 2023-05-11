@@ -24,9 +24,7 @@ func getLocFromLatLong(lat: Double, lon: Double) async -> String
             let locality = placemarks[0].locality != nil ? "\(placemarks[0].locality! + ",")" : ""
             let country = placemarks[0].country != nil ? "\(placemarks[0].country!)" : ""
             locationString = "\(name) \(locality) \(country)"
-                
-        
-            
+            print("Returned \(locationString)")
             return locationString
         }
     } catch {

@@ -3,6 +3,7 @@ class ModelData: ObservableObject {
     @Published var weatherData: WeatherData?
     private let defaultForecastFile: String = "london.json"
     private let defaultAirFile: String = "londonAir.json"
+    private let defaultLocation : String = "Potters Fields Park, London, United Kingdom"
     private let weatherKey: String = "weather"
     init() {
         loadForecast()
@@ -26,8 +27,9 @@ class ModelData: ObservableObject {
             let newWeatherData = WeatherData(location: locationString, forecast: forecastData, air: airData)
             DispatchQueue.main.async {
                 self.weatherData = newWeatherData
+                self.saveForecast(weatherData: newWeatherData)
+                print("Saving")
             }
-            self.saveForecast(weatherData: self.weatherData!)
             return newWeatherData
         } catch {
             throw error
@@ -45,9 +47,9 @@ class ModelData: ObservableObject {
                 self.weatherData = weatherData
                 return
             }
-            catch{
-                print("Save File not found")
+            catch{            
             }
+            print("Save File not found")
         }
         if let file = Bundle.main.url(forResource: defaultForecastFile, withExtension: nil),
                     let airFile = Bundle.main.url(forResource: defaultAirFile, withExtension: nil){
@@ -64,7 +66,7 @@ class ModelData: ObservableObject {
         do {
             let forecast = try decoder.decode(Forecast.self, from: forecastData)
             let air = try decoder.decode(AirData.self, from: airData)
-            self.weatherData = WeatherData(location: "London M8", forecast: forecast, air: air)
+            self.weatherData = WeatherData(location: defaultLocation, forecast: forecast, air: air)
         } catch {
             fatalError("Couldn't parse forecast data as \(Forecast.self):\n\(error)")
         }
@@ -77,6 +79,7 @@ class ModelData: ObservableObject {
         do{
             let weatherEncoded = try encoder.encode(weatherData)
             userDefaults.set(weatherEncoded, forKey: weatherKey)
+            print("Saved")
         }
         catch{
             fatalError("Couldn't encode \(defaultForecastFile) as \(weatherData):\n\(error)")

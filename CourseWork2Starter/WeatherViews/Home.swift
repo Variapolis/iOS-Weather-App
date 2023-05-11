@@ -17,10 +17,13 @@ struct Home: View {
     
     var body: some View {
         ZStack{
-            Image("background2")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
+            GeometryReader{geometry in
+                Image("background2")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width)
+                    .ignoresSafeArea(.all)
+            }
             VStack {
                 HStack {
                     Button {
@@ -83,14 +86,6 @@ struct Home: View {
                         .foregroundColor(.black)
                         .shadow(color: .black, radius: 0.5)
                 }
-            }
-            .onAppear {
-                Task.init {
-                    self.userLocation = await getLocFromLatLong(lat: modelData.weatherData!.forecast.lat, lon: modelData.weatherData!.forecast.lon)
-                    
-                    
-                }
-                
             }
         }
     }
